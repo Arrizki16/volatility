@@ -152,7 +152,20 @@ Name                                                  Pid   PPid   Thds   Hnds T
 . 0xfffffa801b248060:firefox.exe                     2488   1060     22    309 2021-08-29 09:13:21 UTC+0000
 . 0xfffffa801b29f060:firefox.exe                     2300   1060     23    310 2021-08-29 09:13:19 UTC+0000
 ```
+* **psscan** : Pool scanner for process objects
+```
+./volatility.exe -f [nama file.format] --profile=[profil name] psscan
+```
+```
+┌──(root💀DESKTOP-VE2NGI6)-[/mnt/d]
+└─# ./volatility.exe -f example.vmem --profile=Win7SP1x64 psscan
+Volatility Foundation Volatility Framework 2.6
+Offset(P)          Name                PID   PPID PDB                Time created                   Time exited
+------------------ ---------------- ------ ------ ------------------ ------------------------------ ------------------------------
 
+NULL (┬┬﹏┬┬)
+It means that there are no processes that have previously been terminated (inactive) and no processes that have been hidden or unlinked by a rootkit.
+```
 * **psxview** : Find hidden processes with various process listings
 ```
 ./volatility.exe -f [nama file.format] --profile=[profil name] psxview
@@ -205,5 +218,58 @@ Offset(P)          Name                    PID pslist psscan thrdproc pspcid csr
 0x000000007e864b00 csrss.exe               348 True   False  False    True   False True    True
 0x000000007d920060 firefox.exe            2828 True   False  False    True   False True    False    2021-08-29 09:13:25 UTC+0000
 ```
+* **dlllist** : Print list of loaded dlls for each process
+```
+./volatility.exe -f [nama file.format] --profile=[profil name] dlllist
+```
+```
+┌──(root💀DESKTOP-VE2NGI6)-[/mnt/d]
+└─# ./volatility.exe -f example.vmem --profile=Win7SP1x64 dlllist
+Volatility Foundation Volatility Framework 2.6
+************************************************************************
+System pid:      4
+Unable to read PEB for task.
+************************************************************************
+smss.exe pid:    220
+Command line : \SystemRoot\System32\smss.exe
+
+
+Base                             Size          LoadCount Path
+------------------ ------------------ ------------------ ----
+0x0000000047b40000            0x20000             0xffff \SystemRoot\System32\smss.exe
+0x0000000076ee0000           0x19f000             0xffff C:\Windows\SYSTEM32\ntdll.dll
+************************************************************************
+csrss.exe pid:    288
+Command line : %SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows SharedSection=1024,20480,768 Windows=On SubSystemType=Windows ServerDll=basesrv,1 ServerDll=winsrv:UserServerDllInitialization,3 ServerDl
+l=winsrv:ConServerDllInitialization,2 ServerDll=sxssrv,4 ProfileControl=Off MaxRequestThreads=16
+Service Pack 1
+
+Base                             Size          LoadCount Path
+------------------ ------------------ ------------------ ----
+0x0000000049720000             0x6000             0xffff C:\Windows\system32\csrss.exe
+0x0000000076ee0000           0x19f000             0xffff C:\Windows\SYSTEM32\ntdll.dll
+0x000007fefca60000            0x13000             0xffff C:\Windows\system32\CSRSRV.dll
+0x000007fefca40000            0x11000                0x4 C:\Windows\system32\basesrv.DLL
+0x000007fefca00000            0x39000                0x2 C:\Windows\system32\winsrv.DLL
+0x0000000076de0000            0xfa000                0xb C:\Windows\system32\USER32.dll
+0x000007fefec30000            0x67000                0xc C:\Windows\system32\GDI32.dll
+0x0000000076cc0000           0x11f000               0x44 C:\Windows\SYSTEM32\kernel32.dll
+0x000007fefcdd0000            0x6a000               0xdb C:\Windows\system32\KERNELBASE.dll
+0x000007fefee80000             0xe000                0x3 C:\Windows\system32\LPK.dll
+0x000007fefd0e0000            0xcb000                0x3 C:\Windows\system32\USP10.dll
+0x000007feff0b0000            0x9f000                0x3 C:\Windows\system32\msvcrt.dll
+0x000007fefc9f0000             0xc000                0x1 C:\Windows\system32\sxssrv.DLL
+0x000007fefc8f0000            0x91000                0x1 C:\Windows\system32\sxs.dll
+0x000007fefee90000           0x12d000                0x1 C:\Windows\system32\RPCRT4.dll
+0x000007fefc8e0000             0xf000                0x1 C:\Windows\system32\CRYPTBASE.dll
+************************************************************************
+wininit.exe pid:    336
+Command line : wininit.exe
+Service Pack 1
+
+...
+```
 ## References
-https://tryhackme.com/room/bpvolatility
+https://tryhackme.com/room/bpvolatility  
+https://www.andreafortuna.org/2017/07/03/volatility-my-own-cheatsheet-part-2-processes-and-dlls/  
+https://github.com/volatilityfoundation/volatility/wiki/Command-Reference  
