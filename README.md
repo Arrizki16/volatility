@@ -5,6 +5,7 @@
 * [**Installation**](#installation)
 * [**Options**](#options)
 * [**Plugins**](#plugins)
+* [**Extract Files**](#extract-files)
 * [**References**](#references)
 
 
@@ -269,6 +270,136 @@ Service Pack 1
 
 ...
 ```
+* **envars** : Display process environment variables
+```
+./volatility.exe -f [nama file.format] --profile=[profil name] envars
+```
+```┌──(deka㉿DESKTOP-BLGDCCT)-[/mnt/d]
+└─$ ./volatility -f example.vmem --profil=Win7SP1x64 envars
+Volatility Foundation Volatility Framework 2.6
+Pid      Process              Block              Variable                       Value
+-------- -------------------- ------------------ ------------------------------ -----
+     220 smss.exe             0x00000000002d1320 Path                           C:\Windows\System32
+     220 smss.exe             0x00000000002d1320 SystemDrive                    C:
+     220 smss.exe             0x00000000002d1320 SystemRoot                     C:\Windows
+     288 csrss.exe            0x0000000000031320 ComSpec                        C:\Windows\system32\cmd.exe
+     288 csrss.exe            0x0000000000031320 FP_NO_HOST_CHECK               NO
+     288 csrss.exe            0x0000000000031320 NUMBER_OF_PROCESSORS           1
+     288 csrss.exe            0x0000000000031320 OS                             Windows_NT
+     288 csrss.exe            0x0000000000031320 Path                           C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\
+     288 csrss.exe            0x0000000000031320 PATHEXT                        .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+     288 csrss.exe            0x0000000000031320 PROCESSOR_ARCHITECTURE         AMD64
+     288 csrss.exe            0x0000000000031320 PROCESSOR_IDENTIFIER           Intel64 Family 6 Model 158 Stepping 9, GenuineIntel
+     288 csrss.exe            0x0000000000031320 PROCESSOR_LEVEL                6
+     288 csrss.exe            0x0000000000031320 PROCESSOR_REVISION             9e09
+     288 csrss.exe            0x0000000000031320 PSModulePath                   C:\Windows\system32\WindowsPowerShell\v1.0\Modules\
+     288 csrss.exe            0x0000000000031320 SystemDrive                    C:
+     288 csrss.exe            0x0000000000031320 SystemRoot                     C:\Windows
+     288 csrss.exe            0x0000000000031320 TEMP                           C:\Windows\TEMP
+     288 csrss.exe            0x0000000000031320 TMP                            C:\Windows\TEMP
+     288 csrss.exe            0x0000000000031320 USERNAME                       SYSTEM
+     288 csrss.exe            0x0000000000031320 windir                         C:\Windows
+     288 csrss.exe            0x0000000000031320 windows_tracing_flags          3
+     288 csrss.exe            0x0000000000031320 windows_tracing_logfile        C:\BVTBin\Tests\installpackage\csilogfile.log
+     336 wininit.exe          0x000000000018b610 ALLUSERSPROFILE                C:\ProgramData
+     336 wininit.exe          0x000000000018b610 CommonProgramFiles             C:\Program Files\Common Files
+     336 wininit.exe          0x000000000018b610 CommonProgramFiles(x86)        C:\Program Files (x86)\Common Files
+     336 wininit.exe          0x000000000018b610 CommonProgramW6432             C:\Program Files\Common Files
+     336 wininit.exe          0x000000000018b610 COMPUTERNAME                   WIN-OPKNGU7JECI
+     336 wininit.exe          0x000000000018b610 ComSpec                        C:\Windows\system32\cmd.exe
+     336 wininit.exe          0x000000000018b610 FP_NO_HOST_CHECK               NO
+     336 wininit.exe          0x000000000018b610 NUMBER_OF_PROCESSORS           1
+     
+...
+```
+* **consoles** : Extract command history by scanning for _CONSOLE_INFORMATION
+```
+./volatility.exe -f [nama file.format] --profile=[profil name] consoles
+```
+```
+┌──(deka㉿DESKTOP-BLGDCCT)-[/mnt/d]
+└─$ ./volatility -f example.vmem --profil=Win7SP1x64 consoles
+Volatility Foundation Volatility Framework 2.6
+
+NULL :)
+```
+* **cmdscan** : Extract command history by scanning for _COMMAND_HISTORY
+```
+./volatility.exe -f [nama file.format] --profile=[profil name] cmdscan
+```
+```
+┌──(deka㉿DESKTOP-BLGDCCT)-[/mnt/d]
+└─$ ./volatility -f example.vmem --profil=Win7SP1x64 cmdscan
+Volatility Foundation Volatility Framework 2.6
+
+NULL :)
+```
+* **cmdline** : Display process command-line arguments
+```
+./volatility.exe -f [nama file.format] --profile=[profil name] cmdline
+```
+```
+┌──(deka㉿DESKTOP-BLGDCCT)-[/mnt/d]
+└─$ ./volatility -f example.vmem --profil=Win7SP1x64 cmdline
+Volatility Foundation Volatility Framework 2.6
+************************************************************************
+System pid:      4
+************************************************************************
+smss.exe pid:    220
+Command line : \SystemRoot\System32\smss.exe
+************************************************************************
+csrss.exe pid:    288
+Command line : %SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows SharedSection=1024,20480,768 Windows=On SubSystemType=Windows ServerDll=basesrv,1 ServerDll=winsrv:UserServerDllInitialization,3 ServerDll=winsrv:ConServerDllInitialization,2 ServerDll=sxssrv,4 ProfileControl=Off MaxRequestThreads=16
+************************************************************************
+wininit.exe pid:    336
+Command line : wininit.exe
+************************************************************************
+csrss.exe pid:    348
+Command line : %SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows SharedSection=1024,20480,768 Windows=On SubSystemType=Windows ServerDll=basesrv,1 ServerDll=winsrv:UserServerDllInitialization,3 ServerDll=winsrv:ConServerDllInitialization,2 ServerDll=sxssrv,4 ProfileControl=Off MaxRequestThreads=16
+************************************************************************
+winlogon.exe pid:    388
+Command line : winlogon.exe
+************************************************************************
+services.exe pid:    432
+Command line : C:\Windows\system32\services.exe
+************************************************************************
+lsass.exe pid:    440
+Command line : C:\Windows\system32\lsass.exe
+************************************************************************
+lsm.exe pid:    448
+Command line : C:\Windows\system32\lsm.exe
+************************************************************************
+svchost.exe pid:    552
+Command line : C:\Windows\system32\svchost.exe -k DcomLaunch
+************************************************************************
+svchost.exe pid:    620
+Command line : C:\Windows\system32\svchost.exe -k RPCSS
+
+...
+```
+
+## Extract Files
+* **dumpfiles**
+```
+./volatility.exe -f [nama file.format] --profile=[profil name] dumpfiles -Q [offset number] -D [output directory]
+```
+```
+┌──(deka㉿DESKTOP-BLGDCCT)-[/mnt/d]
+└─$ ./volatility -f /mnt/d/CTF/SLASHROOT/CHALL/USER-20210907-002300.raw dumpfiles -Q 0xfffffa80271fd320 -D .
+Volatility Foundation Volatility Framework 2.6
+```
+* **memdump**
+```
+./volatility.exe -f [nama file.format] --profile=[profil name] memdump -D [output directory] --pid=[pid number]
+```
+```
+┌──(deka㉿DESKTOP-BLGDCCT)-[/mnt/d]
+└─$ ./volatility -f example.vmem --profil=Win7SP1x64 memdump -D . --pid=3088
+Volatility Foundation Volatility Framework 2.6
+************************************************************************
+Writing iexplore.exe [  3088] to 3088.dmp
+```
+
 ## References
 https://tryhackme.com/room/bpvolatility  
 https://www.andreafortuna.org/2017/07/03/volatility-my-own-cheatsheet-part-2-processes-and-dlls/  
